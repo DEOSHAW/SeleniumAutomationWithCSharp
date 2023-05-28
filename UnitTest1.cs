@@ -29,7 +29,7 @@ namespace SeleniumAutomationWithCSharp
         {
 
             TestContext.Progress.WriteLine("I am in TearDown");
-            //Assert.Pass();
+            
         }
     }
 }
