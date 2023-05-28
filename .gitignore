@@ -2,7 +2,6 @@
 *.vsidx
 /bin
 /obj
-*.csproj
 *.sln
 *.cache
 *.log
