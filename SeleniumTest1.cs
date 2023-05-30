@@ -37,7 +37,7 @@ namespace SeleniumAutomationWithCSharp
 
             driver.FindElement(By.XPath("//input[@name='username']")).SendKeys("Deo");
             driver.FindElement(By.XPath("//input[@name='password']")).SendKeys("Deo");
-            driver.FindElement(By.CssSelector(".text-info span:nth-child(1) input")).Click();
+            driver.FindElement(By.CssSelector(".text-info span:nth-child(1) input")).Click(); 
             IWebElement SignIn=driver.FindElement(By.Id("signInBtn"));
             SignIn.Click();
             WebDriverWait wait=new WebDriverWait(driver,TimeSpan.FromSeconds(8));
