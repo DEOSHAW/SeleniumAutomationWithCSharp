@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Interactions;
 
 namespace SeleniumAutomationWithCSharp
 {
@@ -17,8 +18,11 @@ namespace SeleniumAutomationWithCSharp
         [SetUp]
         public void startBrowser()
         {
-            driver = new ChromeDriver();
-            driver.Manage().Window.FullScreen();
+
+            ChromeOptions options=new ChromeOptions();
+            options.AddArgument("--start-maximized");
+            driver = new ChromeDriver(options);
+            //driver.Manage().Window.FullScreen();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
         }
@@ -71,7 +75,23 @@ namespace SeleniumAutomationWithCSharp
 
             checkoutElement.Click();
 
-            Thread.Sleep(4000);
+           IList<IWebElement> productsInCart= driver.FindElements(By.CssSelector("h4.media-heading a"));
+            foreach(IWebElement ele in productsInCart)
+            {
+                Products.Contains(ele.Text);
+            }
+
+            driver.FindElement(By.CssSelector(".btn.btn-success")).Click();
+            driver.FindElement(By.CssSelector("#country")).SendKeys("India");
+           IWebElement Country= wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//a[text()='India']")));
+            Country.Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(By.CssSelector("#checkbox2")));
+            driver.FindElement(By.XPath("//input[@value='Purchase']")).Click();
+            Thread.Sleep(2000);
+            String successMessage=driver.FindElement(By.CssSelector(".alert.alert-success")).Text;
+            Thread.Sleep(2000);
+            Assert.AreEqual("Thank you! Your order will be delivered in next few weeks :-)", successMessage);
             
             
 
