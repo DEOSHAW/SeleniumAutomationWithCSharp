@@ -5,24 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SeleniumAutomationWithCSharp.Base;
 
-namespace SeleniumAutomationWithCSharp
+namespace SeleniumAutomationWithCSharp.Tests
 {
-    internal class FramesHandling
+    internal class FramesHandling:BaseClass
     {
 
-        IWebDriver driver;
-
-        [SetUp]
-        public void startBrowser()
-        {
-            ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--start-maximized");
-            driver = new ChromeDriver(options);
-            //driver.Manage().Window.FullScreen();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-
-        }
 
         [Test]
         public void testFrame()
@@ -33,11 +22,11 @@ namespace SeleniumAutomationWithCSharp
             driver.SwitchTo().Frame("courses-iframe");
             driver.FindElement(By.XPath("(//a[contains(text(),'All Access plan')])[1]")).Click();
             Thread.Sleep(2000);
-            String FrameText= driver.FindElement(By.CssSelector("h1")).Text;
+            string FrameText = driver.FindElement(By.CssSelector("h1")).Text;
             TestContext.Progress.WriteLine(FrameText);
             Assert.AreEqual("ALL ACCESS SUBSCRIPTION", FrameText);
             driver.SwitchTo().DefaultContent();
-            String MainPageText = driver.FindElement(By.CssSelector("h1")).Text;
+            string MainPageText = driver.FindElement(By.CssSelector("h1")).Text;
             TestContext.Progress.WriteLine(MainPageText);
             Assert.AreEqual("Practice Page", MainPageText);
 
@@ -45,12 +34,6 @@ namespace SeleniumAutomationWithCSharp
 
         }
 
-        [TearDown]
-        public void closeBrowser()
-        {
-
-            driver.Quit();
-
-        }
+        
     }
 }

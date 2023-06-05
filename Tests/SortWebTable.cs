@@ -7,36 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using SeleniumAutomationWithCSharp.Base;
 
-namespace SeleniumAutomationWithCSharp
+namespace SeleniumAutomationWithCSharp.Tests
 {
-    internal class SortWebTable
+    internal class SortWebTable:BaseClass
     {
 
-        IWebDriver driver;
-
-        [SetUp]
-        public void startBrowser()
-        {
-            driver = new ChromeDriver();
-            driver.Manage().Window.FullScreen();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-
-        }
+      
 
         [Test]
         public void sortWebTable()
         {
             driver.Url = "https://rahulshettyacademy.com/seleniumPractise/#/offers";
-            WebDriverWait wait=new WebDriverWait(driver,TimeSpan.FromSeconds(5));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
 
-           IWebElement pageElement= driver.FindElement(By.XPath("//select[@id='page-menu']"));
+            IWebElement pageElement = driver.FindElement(By.XPath("//select[@id='page-menu']"));
             SelectElement pageDropDown = new SelectElement(pageElement);
             pageDropDown.SelectByText("20");
 
-            IList<IWebElement> vegList=driver.FindElements(By.XPath("//table//tbody//tr//td[1]"));
+            IList<IWebElement> vegList = driver.FindElements(By.XPath("//table//tbody//tr//td[1]"));
             ArrayList vegetableList = new ArrayList();
-            foreach(IWebElement veg in vegList)
+            foreach (IWebElement veg in vegList)
             {
                 vegetableList.Add(veg.Text);
 
@@ -45,24 +37,24 @@ namespace SeleniumAutomationWithCSharp
 
             TestContext.Progress.WriteLine("Before Sorting");
 
-            foreach (String veg in vegetableList)
+            foreach (string veg in vegetableList)
             {
                 TestContext.Progress.WriteLine(veg);
             }
 
             driver.FindElement(By.CssSelector("span.sort-icon.sort-descending")).Click();
 
-            IList<IWebElement> sortedVegList= driver.FindElements(By.XPath("//table//tbody//tr//td[1]"));
+            IList<IWebElement> sortedVegList = driver.FindElements(By.XPath("//table//tbody//tr//td[1]"));
             ArrayList sortedVegetableList = new ArrayList();
 
-            foreach(IWebElement veg in sortedVegList)
+            foreach (IWebElement veg in sortedVegList)
             {
                 sortedVegetableList.Add(veg.Text);
             }
 
             TestContext.Progress.WriteLine("After Sorting");
 
-            foreach (String veg in sortedVegetableList)
+            foreach (string veg in sortedVegetableList)
             {
                 TestContext.Progress.WriteLine(veg);
             }
@@ -71,16 +63,16 @@ namespace SeleniumAutomationWithCSharp
             Assert.AreEqual(sortedVegetableList, vegetableList);
             bool Sorted = true;
 
-            for(int i=0;i<vegetableList.Count;i++)
+            for (int i = 0; i < vegetableList.Count; i++)
             {
-                String Veg1=(String)vegetableList[i];
-                String Veg2 = (String)vegetableList[i];
+                string Veg1 = (string)vegetableList[i];
+                string Veg2 = (string)vegetableList[i];
                 if (!Veg1.Equals(Veg2))
                 {
                     Sorted = false;
                 }
             }
-            if(Sorted)
+            if (Sorted)
             {
                 TestContext.Progress.WriteLine("Sorted");
             }
@@ -90,7 +82,6 @@ namespace SeleniumAutomationWithCSharp
 
             }
 
-           
 
 
 
@@ -99,17 +90,11 @@ namespace SeleniumAutomationWithCSharp
 
 
 
-        }
-
-
-        [TearDown]
-        public void closeBrowser()
-        {
-
-            driver.Quit();
 
         }
 
+
+        
 
     }
 }
