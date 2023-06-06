@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Interactions;
 using SeleniumAutomationWithCSharp.Base;
+using SeleniumAutomationWithCSharp.PageObjects;
 
 namespace SeleniumAutomationWithCSharp.Tests
 {
@@ -21,17 +22,21 @@ namespace SeleniumAutomationWithCSharp.Tests
             driver.Url = "https://rahulshettyacademy.com/loginpagePractise/";
             string[] Products = { "iphone X", "Blackberry" };
 
-            driver.FindElement(By.XPath("//input[@name='username']")).SendKeys("rahulshettyacademy");
-            driver.FindElement(By.XPath("//input[@name='password']")).SendKeys("learning");
+            LoginPage loginPage = new LoginPage(getDriver());
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+
+            /*loginPage.getUserName().SendKeys("rahulshettyacademy");
+            loginPage.getPassword().SendKeys("learning");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             IWebElement professionDropdown = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("select.form-control")));
             SelectElement profDropDown = new SelectElement(professionDropdown);
             profDropDown.SelectByValue("consult");
 
-            driver.FindElement(By.CssSelector(".text-info span:nth-child(1) input")).Click();
-            IWebElement SignIn = driver.FindElement(By.Id("signInBtn"));
+            loginPage.getCheckBox().Click();
+            IWebElement SignIn = loginPage.getSignInButton();
             SignIn.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(3000);*/
+            loginPage.login("rahulshettyacademy", "learning");
             TestContext.Progress.WriteLine("Login Successful");
 
             IWebElement checkoutElement = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.PartialLinkText

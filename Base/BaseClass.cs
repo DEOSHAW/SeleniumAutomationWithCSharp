@@ -32,6 +32,11 @@ namespace SeleniumAutomationWithCSharp.Base
 
         }
 
+        public IWebDriver getDriver()
+        {
+            return driver;
+        }
+
         public void InitBrowser(String BrowserName)
         {
             switch (BrowserName)

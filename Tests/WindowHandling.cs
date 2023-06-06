@@ -21,7 +21,7 @@ namespace SeleniumAutomationWithCSharp.Tests
             driver.Url = "https://rahulshettyacademy.com/loginpagePractise/";
             driver.FindElement(By.CssSelector(".blinkingText:nth-child(1)")).Click();
             string parentWindow = driver.CurrentWindowHandle;
-            ReadOnlyCollection<string> allWindows = driver.WindowHandles;
+            ReadOnlyCollection<String> allWindows = driver.WindowHandles;
             Assert.AreEqual(2, allWindows.Count);
             TestContext.Progress.WriteLine(driver.Title);
 
