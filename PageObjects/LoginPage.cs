@@ -59,12 +59,13 @@ namespace SeleniumAutomationWithCSharp.PageObjects
 
         }
 
-        public void login(String user,String pwd)
+        public ProductsPage login(String user,String pwd)
         {
             userName.SendKeys(user);
             password.SendKeys(pwd);
             checkBox.Click();
             signInButton.Click();
+            return new ProductsPage(driver);
         }
 
     }
