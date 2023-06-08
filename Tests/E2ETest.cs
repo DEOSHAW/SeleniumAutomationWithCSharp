@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Interactions;
 using SeleniumAutomationWithCSharp.Base;
 using SeleniumAutomationWithCSharp.PageObjects;
+using SeleniumAutomationWithCSharp.Utilities;
 
 namespace SeleniumAutomationWithCSharp.Tests
 {
@@ -16,11 +17,17 @@ namespace SeleniumAutomationWithCSharp.Tests
     {
 
 
+        //[Test, TestCaseSource("AddTestDataConfig")]
+        //[TestCaseSource("AddTestDataConfig")]
+        //[TestCase("rahulshettyacademy", "learning")]
+        //[TestCase("rahulshettyacademy", "learning1")]
+        // public void endToEndTestForProductPurchase(String userName,String password)
         [Test]
         public void endToEndTestForProductPurchase()
         {
             driver.Url = "https://rahulshettyacademy.com/loginpagePractise/";
-            string[] Products = { "iphone X", "Blackberry" };
+            //string[] Products = { "iphone X", "Blackberry" };
+            string[] Products= getDataParser().ExtractDataArray("products");
 
             LoginPage loginPage = new LoginPage(getDriver());
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
@@ -36,7 +43,10 @@ namespace SeleniumAutomationWithCSharp.Tests
             IWebElement SignIn = loginPage.getSignInButton();
             SignIn.Click();
             Thread.Sleep(3000);*/
-            ProductsPage products=loginPage.login("rahulshettyacademy", "learning");
+
+            String userName=getDataParser().ExtractData("username");
+            String password = getDataParser().ExtractData("password");
+            ProductsPage products=loginPage.login(userName, password);
             TestContext.Progress.WriteLine("Login Successful");
 
             /*IWebElement checkoutElement = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.PartialLinkText
@@ -94,6 +104,15 @@ namespace SeleniumAutomationWithCSharp.Tests
             
 
 
+
+        }
+
+        public static IEnumerable<TestCaseData> AddTestDataConfig()
+        {
+
+            yield return new TestCaseData("rahulshettyacademy", "learning");
+            yield return new TestCaseData("rahulshettyacademy", "learning");
+            yield return new TestCaseData("rahulshettyacademy", "learning");
 
         }
 

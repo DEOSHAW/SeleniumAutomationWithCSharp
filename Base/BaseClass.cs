@@ -9,6 +9,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
 using System.Configuration;
+using SeleniumAutomationWithCSharp.Utilities;
 
 namespace SeleniumAutomationWithCSharp.Base
 {
@@ -35,6 +36,11 @@ namespace SeleniumAutomationWithCSharp.Base
         public IWebDriver getDriver()
         {
             return driver;
+        }
+
+        public JsonReader getDataParser()
+        {
+            return new JsonReader();
         }
 
         public void InitBrowser(String BrowserName)
