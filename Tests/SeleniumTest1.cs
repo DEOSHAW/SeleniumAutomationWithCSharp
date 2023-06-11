@@ -16,7 +16,7 @@ namespace SeleniumAutomationWithCSharp.Tests
     {
       
 
-        [Test]
+        [Test,Category("Smoke")]
         public void Test1()
         {
 

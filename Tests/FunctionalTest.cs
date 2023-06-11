@@ -16,7 +16,7 @@ namespace SeleniumAutomationWithCSharp.Tests
 
       
 
-        [Test]
+        [Test,Category("Regression")]
         public void handleDropDown()
         {
             driver.Url = "https://rahulshettyacademy.com/loginpagePractise/";

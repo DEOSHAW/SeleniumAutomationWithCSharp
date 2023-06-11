@@ -17,11 +17,16 @@ namespace SeleniumAutomationWithCSharp.Base
     {
 
         public IWebDriver driver;
+         String BrowserName;
+        //ThreadLocal<IWebDriver> driver=new ThreadLocal<IWebDriver>();
 
         [SetUp]
         public void startBrowser()
-        {;
-            String BrowserName=ConfigurationManager.AppSettings["browser"];
+        {
+            BrowserName = ConfigurationManager.AppSettings["browser"];
+
+            
+           
             TestContext.Progress.WriteLine("Browser Name is: "+BrowserName);
 
             /* ChromeOptions options = new ChromeOptions();
@@ -29,6 +34,7 @@ namespace SeleniumAutomationWithCSharp.Base
              driver = new ChromeDriver(options);
              //driver.Manage().Window.FullScreen();*/
             InitBrowser(BrowserName);
+           // driver.Value.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
         }

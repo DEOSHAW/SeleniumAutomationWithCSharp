@@ -13,16 +13,19 @@ using SeleniumAutomationWithCSharp.Utilities;
 
 namespace SeleniumAutomationWithCSharp.Tests
 {
+   // [Parallelizable(ParallelScope.Self)]  (To run test multiple files in parallel, mention the same command in all the files)
+    //[Parallelizable(ParallelScope.Children)]  (To run all tests in a class in parallel)
     internal class E2ETest : BaseClass
     {
 
 
         //[Test, TestCaseSource("AddTestDataConfig")]
+        //[Parallelizable(ParallelScope.All)] (This will work only for parameterized test method, so above statement is compulsory)
         //[TestCaseSource("AddTestDataConfig")]
         //[TestCase("rahulshettyacademy", "learning")]
         //[TestCase("rahulshettyacademy", "learning1")]
         // public void endToEndTestForProductPurchase(String userName,String password)
-        [Test]
+        [Test,Category("Smoke")]
         public void endToEndTestForProductPurchase()
         {
             driver.Url = "https://rahulshettyacademy.com/loginpagePractise/";
