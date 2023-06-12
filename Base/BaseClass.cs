@@ -10,6 +10,10 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
 using System.Configuration;
 using SeleniumAutomationWithCSharp.Utilities;
+using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports;
+using NUnit.Framework.Interfaces;
+using OpenQA.Selenium.DevTools.V111.Page;
 
 namespace SeleniumAutomationWithCSharp.Base
 {
@@ -17,12 +21,31 @@ namespace SeleniumAutomationWithCSharp.Base
     {
 
         public IWebDriver driver;
+        ExtentReports extent;
+        ExtentTest test;
          String BrowserName;
+
+        //Report file
+        [OneTimeSetUp] 
+        public void Setup()
+        {
+
+            String WorkingDirectory = Environment.CurrentDirectory;
+            String parentDirectory = Directory.GetParent(WorkingDirectory).Parent.Parent.FullName;
+            String reportPath = parentDirectory + "//index.html";
+            var htmlReporter = new ExtentHtmlReporter(reportPath);
+            extent = new ExtentReports();
+            extent.AttachReporter(htmlReporter);
+            extent.AddSystemInfo("Host","Local Host");
+        
+        }
         //ThreadLocal<IWebDriver> driver=new ThreadLocal<IWebDriver>();
 
         [SetUp]
         public void startBrowser()
         {
+
+           test= extent.CreateTest(TestContext.CurrentContext.Test.Name);
             BrowserName = ConfigurationManager.AppSettings["browser"];
 
             
@@ -70,10 +93,40 @@ namespace SeleniumAutomationWithCSharp.Base
         [TearDown]
         public void closeBrowser()
         {
+            var status = TestContext.CurrentContext.Result.Outcome.Status;
+            var stackTrace = TestContext.CurrentContext.Result.StackTrace;
+            DateTime time=DateTime.Now;
+            String fileName = "Screenshot_" + time.ToString("h_mm_ss") + ".png";
+            if(status==TestStatus.Failed)
+            {
+                test.Fail("Test Failed",CaptureScreenshot(driver,fileName));
+                test.Log(Status.Fail, stackTrace);
+
+            }
+            else if(status == TestStatus.Passed)
+            {
+                test.Pass("Test Passed");
+
+            }
+            extent.Flush();
 
             driver.Quit();
 
         }
+
+        public MediaEntityModelProvider CaptureScreenshot(IWebDriver driver,String screenshotName)
+        {
+
+            ITakesScreenshot ts = (ITakesScreenshot)driver;
+           String screenshot= ts.GetScreenshot().AsBase64EncodedString;
+            return MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshot, screenshotName).Build();
+            //return MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshot, screenshotName).Build();
+
+
+
+        }
+
+      
 
 
     }
