@@ -83,6 +83,7 @@ namespace SeleniumAutomationWithCSharp.Base
                     ChromeOptions options = new ChromeOptions();
                     options.AddArgument("--start-maximized");
                     driver = new ChromeDriver(options);
+                    driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromSeconds(5);
                     break;
 
                 case "Edge": driver = new EdgeDriver();

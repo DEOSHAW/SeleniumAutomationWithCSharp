@@ -1,6 +1,7 @@
 ﻿using SeleniumAutomationWithCSharp.Base;
 using SeleniumAutomationWithCSharp.PageObjects;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace SeleniumAutomationWithCSharp.Tests
             NextGen ng=new NextGen(driver);
             ng.clickOnNewBrowserTab();
             //List<String> allWindows= driver.WindowHandles.ToList();
-            IList<String> allWindows= driver.WindowHandles;
+            ReadOnlyCollection<String> allWindows = driver.WindowHandles;
             int count = 0;
             foreach (String window in allWindows)
             { 
