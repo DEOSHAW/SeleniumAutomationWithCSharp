@@ -30,8 +30,8 @@ namespace SeleniumAutomationWithCSharp.Tests
 
             profDropDown.SelectByValue("consult");
 
-            // IList<IWebElement> radioList = driver.FindElements(By.XPath("//input[@type='radio']"));
-            System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> radioList = driver.FindElements(By.XPath("//input[@type='radio']"));
+            IList<IWebElement> radioList = driver.FindElements(By.XPath("//input[@type='radio']"));
+            //System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> radioList = driver.FindElements(By.XPath("//input[@type='radio']"));
 
             for (int i = 0; i < radioList.Count; i++)
             {

@@ -13,7 +13,7 @@ using SeleniumAutomationWithCSharp.Utilities;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using NUnit.Framework.Interfaces;
-using OpenQA.Selenium.DevTools.V111.Page;
+
 
 namespace SeleniumAutomationWithCSharp.Base
 {
