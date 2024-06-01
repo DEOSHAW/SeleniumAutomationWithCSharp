@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace SeleniumAutomationWithCSharp.Tests
 {
-    public class SeleniumTest1:BaseClass
+    public class SeleniumTest1 : BaseClass
     {
-      
 
-        [Test,Category("Smoke")]
+
+        [Test, Category("Smoke")]
         public void Test1()
         {
 
@@ -49,17 +49,7 @@ namespace SeleniumAutomationWithCSharp.Tests
             Assert.AreEqual("Incorrect username/password.", errorMsg);
             Assert.AreEqual("https://rahulshettyacademy.com/documents-request", hrefUrl);
             Thread.Sleep(2000);
-
-
-
-
-
-
-
-
-
-
         }
-       
+
     }
 }
